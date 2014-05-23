@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" 
+    android:background="#F5F5F5">
+
+    <ImageButton
+        android:id="@+id/treasureImageInputButton"
+        android:layout_width="200dp"
+        android:layout_height="190dp"
+        android:layout_gravity="center"
+        android:src="@drawable/register_photo_button" />
+
+    <EditText
+        android:id="@+id/treasureNameInputBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/round"
+        android:hint="Treasure Name"
+        android:padding="8dp" />
+
+    <EditText
+        android:id="@+id/treasureSerialInputBox"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/round"
+        android:hint="Serial Number"
+        android:padding="8dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" >
+
+        <EditText
+            android:id="@+id/treasureOwnerInputBox"
+            android:layout_width="149dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:hint="Owner"
+            android:padding="8dp" >
+
+            <requestFocus />
+        </EditText>
+
+        <EditText
+            android:id="@+id/treasureDateInputBox"
+            android:layout_width="152dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:hint="Date"
+            android:inputType="date"
+            android:padding="8dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp" >
+
+        <EditText
+            android:id="@+id/treasureLevelInputBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:hint="Level"
+            android:padding="8dp" />
+
+        <EditText
+            android:id="@+id/treasureSizeInputBox"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/round"
+            android:ems="10"
+            android:hint="Size"
+            android:padding="8dp" />
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/treasureCommentInputBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.62"
+        android:background="@drawable/round"
+        android:ems="10"
+        android:hint="Message"
+        android:gravity="top"
+        android:inputType="text"
+        android:padding="8dp" />
+
+    <Button
+        android:id="@+id/submitButton"
+        android:layout_width="70dp"
+        android:layout_height="42dp"
+        android:layout_gravity="center"
+        android:background="@drawable/register_done" />
+
+</LinearLayout>
