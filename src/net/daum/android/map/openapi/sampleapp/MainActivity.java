@@ -17,21 +17,11 @@ public class MainActivity extends Activity {
         
         Button button1 = (Button)findViewById(R.id.button_start);
         button1.setOnClickListener(buttonClickListener1);
-        
-        Button button2 = (Button)findViewById(R.id.button_start_layout_xml);
-        button2.setOnClickListener(buttonClickListener2);
     }
     
     private OnClickListener buttonClickListener1 = new OnClickListener() {
         public void onClick(View v) {
 			Intent intent = new Intent(MainActivity.this, DaumMapSampleActivity.class);
-			startActivity(intent);
-        }
-    };
-    
-    private OnClickListener buttonClickListener2 = new OnClickListener() {
-        public void onClick(View v) {
-        	Intent intent = new Intent(MainActivity.this, DaumMapSampleActivityLayoutXML.class);
 			startActivity(intent);
         }
     };
