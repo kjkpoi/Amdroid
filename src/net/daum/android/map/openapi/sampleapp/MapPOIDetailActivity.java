@@ -24,12 +24,14 @@ public class MapPOIDetailActivity extends Activity {
         long treasureID = intent.getLongExtra("treasureID", -1);
         Treasure treasure = db.getTreasure(treasureID);
         TextView textName = (TextView) this.findViewById(R.id.textName);
-        TextView textComment = (TextView) this.findViewById(R.id.textComment);
-        TextView textPhone = (TextView) this.findViewById(R.id.textPhone);
+        TextView textSerial = (TextView) this.findViewById(R.id.textSerial);
+        TextView textOwner = (TextView) this.findViewById(R.id.textOwner);
+        TextView textDate = (TextView) this.findViewById(R.id.textDate);
+        TextView textLevel = (TextView) this.findViewById(R.id.textLevel);
+        TextView textSize = (TextView) this.findViewById(R.id.textSize);
+        TextView textMessage = (TextView) this.findViewById(R.id.textMessage);
         
         textName.setText(treasure.getName());
-        textComment.setText(treasure.getComment());
-        textPhone.setText(treasure.getPhoneNumber());
         
         ImageView imageTreasure = (ImageView) this.findViewById(R.id.imageTreasure);
         Bitmap treasureImage = BitmapFactory.decodeByteArray(treasure.getImage(), 0, treasure.getImage().length);  

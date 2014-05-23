@@ -79,8 +79,8 @@ public class BoardActivity extends Activity {
 				LayoutInflater layoutInflator = LayoutInflater.from(getContext());
 				convertView = layoutInflator.inflate(R.layout.board_item, null);
 
-				viewHolder.tx1 = (TextView) convertView.findViewById(R.id.textView1);
-				viewHolder.tx2 = (TextView) convertView.findViewById(R.id.textView2);
+				viewHolder.tx1 = (TextView) convertView.findViewById(R.id.textName);
+				viewHolder.tx2 = (TextView) convertView.findViewById(R.id.textOwner);
 				
 				convertView.setTag(viewHolder);
 			}
