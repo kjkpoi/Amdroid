@@ -1,11 +1,19 @@
 package net.daum.android.map.openapi.sampleapp;
 
+/**
+ * @author lacti
+ *
+ */
 public class Treasure { 
     
     int id; 
     String name; 
+    String serial;
     String comment;
-    String phone_number;
+    String owner;
+    String date;
+    String level;
+    String size;
     double latitude;
     double longitude;
     byte[] image;
@@ -13,20 +21,28 @@ public class Treasure {
     public Treasure(){ 
    
     } 
-    public Treasure(int id, String name, String comment, String phone_number, double latitude, double longitude, byte[] image){ 
+    public Treasure(int id, String name, String serial, String comment, String owner, String date, String level, String size, double latitude, double longitude, byte[] image){ 
         this.id = id; 
         this.name = name; 
+        this.serial = serial;
         this.comment = comment;
-        this.phone_number = phone_number;
+        this.owner = owner;
+        this.date = date;
+        this.level = level;
+        this.size = size;
         this.latitude = latitude;
         this.longitude = longitude;
         this.image = image;
     } 
    
-    public Treasure(String name, String comment, String phone_number, double latitude, double longitude, byte[] image){ 
+    public Treasure(String name, String serial, String comment, String owner, String date, String level, String size, double latitude, double longitude, byte[] image){ 
         this.name = name; 
+        this.serial = serial;
         this.comment = comment;
-        this.phone_number = phone_number; 
+        this.owner = owner;
+        this.date = date;
+        this.level = level;
+        this.size = size;
         this.latitude = latitude;
         this.longitude = longitude;
         this.image = image;
@@ -55,15 +71,37 @@ public class Treasure {
     public void setComment(String comment){
     	this.comment = comment;
     }
-   
-    public String getPhoneNumber(){ 
-        return this.phone_number; 
-    } 
-   
-    public void setPhoneNumber(String phone_number){ 
-        this.phone_number = phone_number; 
-    }
     
+	public String getSerial() {
+		return serial;
+	}
+	public void setSerial(String serial) {
+		this.serial = serial;
+	}
+	public String getOwner() {
+		return owner;
+	}
+	public void setOwner(String owner) {
+		this.owner = owner;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
+	public String getLevel() {
+		return level;
+	}
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	public String getSize() {
+		return size;
+	}
+	public void setSize(String size) {
+		this.size = size;
+	}
 	public double getLatitude() {
 		return latitude;
 	}

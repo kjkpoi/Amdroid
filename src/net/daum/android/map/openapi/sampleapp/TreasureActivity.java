@@ -3,6 +3,8 @@ package net.daum.android.map.openapi.sampleapp;
 import java.io.ByteArrayOutputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -18,12 +20,17 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 
 public class TreasureActivity extends Activity {
-	
+
 	EditText treasureNameInputBox = null;
+	EditText treasureSerialInputBox = null;
+	EditText treasureOwnerInputBox = null;
+	EditText treasureDateInputBox = null;
 	EditText treasureCommentInputBox = null;
-	EditText treasurePhoneInputBox = null;
+	Spinner treasureLevelSpinner = null;
+	Spinner treasureSizeSpinner = null;
 	DBTreasureHelper db = new DBTreasureHelper(this);
 	
 	ImageButton treasureImageButton = null;
@@ -34,8 +41,15 @@ public class TreasureActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.treasure_select);
 		treasureNameInputBox = (EditText)this.findViewById(R.id.treasureNameInputBox);
+		treasureSerialInputBox = (EditText)this.findViewById(R.id.treasureSerialInputBox);
+		treasureOwnerInputBox = (EditText)this.findViewById(R.id.treasureOwnerInputBox);
+		treasureDateInputBox = (EditText)this.findViewById(R.id.treasureDateInputBox);
 		treasureCommentInputBox = (EditText)this.findViewById(R.id.treasureCommentInputBox);
-		treasurePhoneInputBox = (EditText)this.findViewById(R.id.treasureLevelInputBox);
+		treasureLevelSpinner = (Spinner)this.findViewById(R.id.treasureLevelSpinner);
+		treasureSizeSpinner = (Spinner)this.findViewById(R.id.treasureSizeSpinner);
+		
+		String today = new SimpleDateFormat("yyyy-MM-dd").format(Calendar.getInstance().getTime());
+		treasureDateInputBox.setText(today);
 		
 		Button submitButton = (Button)this.findViewById(R.id.submitButton);
 		submitButton.setOnClickListener(submitButtonClickListener);
@@ -57,7 +71,15 @@ public class TreasureActivity extends Activity {
 		        byteArray = stream.toByteArray() ;  
 			}
 	    
-        	long row_id = db.addTreasure(new Treasure(treasureNameInputBox.getText().toString(), treasureCommentInputBox.getText().toString(), treasurePhoneInputBox.getText().toString(), latitude, longitude, byteArray));
+        	long row_id = db.addTreasure(new Treasure(
+        			treasureNameInputBox.getText().toString(),
+        			treasureSerialInputBox.getText().toString(),
+        			treasureCommentInputBox.getText().toString(),
+        			treasureOwnerInputBox.getText().toString(),
+        			treasureDateInputBox.getText().toString(),
+        			treasureLevelSpinner.getSelectedItem().toString(),
+        			treasureSizeSpinner.getSelectedItem().toString(),
+        			latitude, longitude, byteArray));
 			intent.putExtra("treasureRowId", row_id);
 			setResult(RESULT_OK, intent);
 			finish();	

@@ -43,7 +43,10 @@ public class TreasureAlert extends Activity {
 					pushIntent.putExtra("longitude", longitude);
 					startActivityForResult(pushIntent, 1);
 				} else if(y >= 530 && y <= 585) {
-					Toast.makeText(getApplicationContext(), "Push No", Toast.LENGTH_LONG).show();
+					Intent intent = new Intent(context, DaumMapSampleActivity.class);
+				    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);   
+					startActivity(intent);
+					finish();
 				}
 			}
 			return false;

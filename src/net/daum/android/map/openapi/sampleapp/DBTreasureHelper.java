@@ -13,7 +13,7 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 
 	// All Static variables
 	// Database Version
-	private static final int DATABASE_VERSION = 2;
+	private static final int DATABASE_VERSION = 3;
 
 	// Database Name
 	private static final String DATABASE_NAME = "treasuresManager";
@@ -24,8 +24,12 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 	// treasure Table Columns names
 	private static final String KEY_ID = "id";
 	private static final String KEY_NAME = "name";
+	private static final String KEY_SERIAL = "serial";
 	private static final String KEY_COMMENT = "comment";
-	private static final String KEY_PH_NO = "phone_number";
+	private static final String KEY_OWNER = "owner";
+	private static final String KEY_DATE = "date";
+	private static final String KEY_LEVEL = "level";
+	private static final String KEY_SIZE = "size";
 	private static final String KEY_LATITUDE = "latitude";
 	private static final String KEY_LONGITUDE = "longitude";
 	private static final String KEY_IMAGE = "image";
@@ -37,10 +41,8 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 	// Creating Tables
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		String CREATE_TREASURE_TABLE = "CREATE TABLE " + TABLE_TREASURE + "("
-				+ KEY_ID + " INTEGER PRIMARY KEY," + KEY_NAME + " TEXT,"
-				+ KEY_COMMENT + " TEXT," + KEY_PH_NO + " TEXT," + KEY_LATITUDE + 
-				" DOUBLE," + KEY_LONGITUDE + " DOUBLE," + KEY_IMAGE + " BLOB" + ")";
+		String CREATE_TREASURE_TABLE = String.format("CREATE TABLE %s (%s INTEGER PRIMARY KEY, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s TEXT, %s DOUBLE, %s DOUBLE, %s BLOB)",
+				TABLE_TREASURE, KEY_ID, KEY_NAME, KEY_SERIAL, KEY_COMMENT, KEY_OWNER, KEY_DATE, KEY_LEVEL, KEY_SIZE, KEY_LATITUDE, KEY_LONGITUDE, KEY_IMAGE);
 		db.execSQL(CREATE_TREASURE_TABLE);
 	}
 
@@ -64,8 +66,12 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, treasure.getName());
+		values.put(KEY_SERIAL, treasure.getSerial());
 		values.put(KEY_COMMENT, treasure.getComment());
-		values.put(KEY_PH_NO, treasure.getPhoneNumber());
+		values.put(KEY_OWNER, treasure.getOwner());
+		values.put(KEY_DATE, treasure.getDate());
+		values.put(KEY_LEVEL, treasure.getLevel());
+		values.put(KEY_SIZE, treasure.getSize());
 		values.put(KEY_LATITUDE, treasure.getLatitude());
 		values.put(KEY_LONGITUDE, treasure.getLongitude());
 		values.put(KEY_IMAGE, treasure.getImage());
@@ -81,13 +87,17 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_TREASURE, new String[] { KEY_ID,
-				KEY_NAME, KEY_COMMENT, KEY_PH_NO, KEY_LATITUDE, KEY_LONGITUDE, KEY_IMAGE }, KEY_ID + "=?",
+				KEY_NAME, KEY_SERIAL, KEY_COMMENT, KEY_OWNER, KEY_DATE, KEY_LEVEL, KEY_SIZE, KEY_LATITUDE, KEY_LONGITUDE, KEY_IMAGE }, KEY_ID + "=?",
 				new String[] { String.valueOf(id) }, null, null, null, null);
 		if (cursor != null)
 			cursor.moveToFirst();
 
-		Treasure treasure = new Treasure(Integer.parseInt(cursor.getString(0)),
-				cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getDouble(4), cursor.getDouble(5), cursor.getBlob(6));
+		Treasure treasure = new Treasure(
+				Integer.parseInt(cursor.getString(0)),
+				cursor.getString(1), cursor.getString(2), cursor.getString(3),
+				cursor.getString(4), cursor.getString(5),
+				cursor.getString(6), cursor.getString(7),
+				cursor.getDouble(8), cursor.getDouble(9), cursor.getBlob(10));
 		return treasure;
 	}
 
@@ -106,11 +116,15 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 				Treasure treasure = new Treasure();
 				treasure.setID(Integer.parseInt(cursor.getString(0)));
 				treasure.setName(cursor.getString(1));
-				treasure.setComment(cursor.getString(2));
-				treasure.setPhoneNumber(cursor.getString(3));
-				treasure.setLatitude(cursor.getDouble(4));
-				treasure.setLongitude(cursor.getDouble(5));
-				treasure.setImage(cursor.getBlob(6));
+				treasure.setSerial(cursor.getString(2));
+				treasure.setComment(cursor.getString(3));
+				treasure.setOwner(cursor.getString(4));
+				treasure.setDate(cursor.getString(5));
+				treasure.setLevel(cursor.getString(6));
+				treasure.setSize(cursor.getString(7));
+				treasure.setLatitude(cursor.getDouble(8));
+				treasure.setLongitude(cursor.getDouble(9));
+				treasure.setImage(cursor.getBlob(10));
 				treasureList.add(treasure);
 			} while (cursor.moveToNext());
 		}
@@ -124,8 +138,12 @@ public class DBTreasureHelper extends SQLiteOpenHelper {
 
 		ContentValues values = new ContentValues();
 		values.put(KEY_NAME, treasure.getName());
+		values.put(KEY_SERIAL, treasure.getSerial());
 		values.put(KEY_COMMENT, treasure.getComment());
-		values.put(KEY_PH_NO, treasure.getPhoneNumber());
+		values.put(KEY_OWNER, treasure.getOwner());
+		values.put(KEY_DATE, treasure.getDate());
+		values.put(KEY_LEVEL, treasure.getLevel());
+		values.put(KEY_SIZE, treasure.getSize());
 		values.put(KEY_LATITUDE, treasure.getLatitude());
 		values.put(KEY_LONGITUDE, treasure.getLongitude());
 		values.put(KEY_IMAGE, treasure.getImage());
