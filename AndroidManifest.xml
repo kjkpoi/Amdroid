@@ -78,6 +78,10 @@
             android:name="net.daum.android.map.openapi.sampleapp.NewTreasure"
             android:label="@string/title_activity_new_treasure" >
         </activity>
+        <activity
+            android:name="net.daum.android.map.openapi.sampleapp.NewTreasureActivity"
+            android:label="@string/title_activity_new_treasure" >
+        </activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" >

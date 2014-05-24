@@ -25,6 +25,8 @@ public class TreasureAlert extends Activity {
 		notice.setOnTouchListener(imageTouchListener);
 	}
 	
+	private static final int REQUEST_CODE_ADD_TREASURE = 1;
+	
 	private OnTouchListener imageTouchListener = new OnTouchListener() {
 		
 		@Override
@@ -41,11 +43,10 @@ public class TreasureAlert extends Activity {
 					Intent pushIntent = new Intent(context, TreasureActivity.class);
 					pushIntent.putExtra("latitude", latitude);
 					pushIntent.putExtra("longitude", longitude);
-					startActivityForResult(pushIntent, 1);
+					startActivityForResult(pushIntent, REQUEST_CODE_ADD_TREASURE);
+					
 				} else if(y >= 530 && y <= 585) {
-					Intent intent = new Intent(context, DaumMapSampleActivity.class);
-				    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);   
-					startActivity(intent);
+					setResult(RESULT_CANCELED);
 					finish();
 				}
 			}
@@ -55,20 +56,25 @@ public class TreasureAlert extends Activity {
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		long row_id;
+
 		if(resultCode == RESULT_OK) {
-			Intent intent = getIntent();
 			switch (requestCode) {
-			case 1:
-				row_id = data.getLongExtra("treasureRowId", 0);
-				intent.putExtra("treasureRowId", row_id);
-				setResult(RESULT_OK, intent);
-				finish();	
+			case REQUEST_CODE_ADD_TREASURE:
+				processAddTreasure(data);
 				break;
 
 			default:
 				break;
 			}
 		}
+	}
+
+	private void processAddTreasure(Intent data) {
+		Intent intent = getIntent();
+		long row_id = data.getLongExtra("treasureRowId", 0);
+		intent.putExtra("treasureRowId", row_id);
+		setResult(RESULT_OK, intent);
+		
+		finish();
 	}; 
 }

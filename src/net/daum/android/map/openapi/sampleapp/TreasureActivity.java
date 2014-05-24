@@ -82,7 +82,8 @@ public class TreasureActivity extends Activity {
         			latitude, longitude, byteArray));
 			intent.putExtra("treasureRowId", row_id);
 			setResult(RESULT_OK, intent);
-			finish();	
+			
+			startActivityForResult(new Intent(getApplicationContext(), NewTreasureActivity.class), REQUEST_CODE_SHOW_DIALOG);
         }
     };
 	
@@ -91,7 +92,7 @@ public class TreasureActivity extends Activity {
         	
         	Intent intent = new Intent(Intent.ACTION_GET_CONTENT) ;
         	intent.setType("image/*");
-        	startActivityForResult(intent, 1) ;
+        	startActivityForResult(intent, REQUEST_CODE_SELECT_IMAGE);
      /*   	 
         	// Button - 카메라
         	if( v == btnCamera )
@@ -110,9 +111,12 @@ public class TreasureActivity extends Activity {
         }
     };
     
+    private static final int REQUEST_CODE_SELECT_IMAGE = 1;
+    private static final int REQUEST_CODE_SHOW_DIALOG = 2;
+    
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-    	switch(requestCode) {
-    	case 1:
+    	switch (requestCode) {
+    	case REQUEST_CODE_SELECT_IMAGE:
     		try {
         		Uri imgUri = data.getData();
 				Bitmap photo = Images.Media.getBitmap(getContentResolver(), imgUri);
@@ -139,8 +143,11 @@ public class TreasureActivity extends Activity {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-    		
-    	break;
+    		break;
+    	
+    	case REQUEST_CODE_SHOW_DIALOG:
+    		finish();
+    		break;
     	}
     };
     
