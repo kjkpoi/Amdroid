@@ -17,6 +17,9 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.graphics.Color;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -44,6 +47,8 @@ public class DaumMapSampleActivity extends Activity
 	private MapPOIItem poiItem;
 	private MapReverseGeoCoder reverseGeoCoder = null;
 	DBTreasureHelper db = new DBTreasureHelper(this);
+	
+	private ScenarioPlayer scenarioPlayer;
 
     /** Called when the activity is first created. */
     @Override
@@ -68,11 +73,21 @@ public class DaumMapSampleActivity extends Activity
         mapView.setPOIItemEventListener(this);
         mapView.setMapType(MapView.MapType.Standard);
         linearLayout.addView(mapView);
+        
         List<Treasure> treasureList = db.getAlltreasure();
         for(Treasure treasure : treasureList)
         	makeMarker(treasure);
 
         setContentView(linearLayout);
+        
+        LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
+        scenarioPlayer = new ScenarioPlayer(locationManager);
+        scenarioPlayer.initialize(null);
+
+        scenarioPlayer.add(scenarioPlayer.new MoveLocation(new MockLocationProvider.LatLng(37.537229, 127.005515)));
+        scenarioPlayer.add(scenarioPlayer.new MoveLocation(new MockLocationProvider.LatLng(37.545024, 127.03923)));
+        scenarioPlayer.add(scenarioPlayer.new MoveLocation(new MockLocationProvider.LatLng(37.527896, 127.036245)));
+        scenarioPlayer.add(scenarioPlayer.new MoveLocation(new MockLocationProvider.LatLng(37.541889, 127.095388)));
     }
     
     @Override
@@ -325,7 +340,7 @@ public class DaumMapSampleActivity extends Activity
 		
 		case MENU_REPORT:
 		{
-			String[] mapMoveMenuItems = { "User Location On", "User Location+Heading On", "Off", "Show Location Marker", "Hide Location Marker", "Reverse Geo-coding"};
+			String[] mapMoveMenuItems = { "User Location On", "User Location+Heading On", "Off", "Show Location Marker", "Hide Location Marker", "Reverse Geo-coding", "Scenario"};
 			Builder dialog = new AlertDialog.Builder(this);
 			dialog.setTitle("Location Tracking");
 			dialog.setItems(mapMoveMenuItems, new OnClickListener() {
@@ -365,6 +380,11 @@ public class DaumMapSampleActivity extends Activity
 						reverseGeoCoder.startFindingAddress();
 					}
 						break;
+					case 6:
+					{
+						scenarioPlayer.start();
+					}
+					break;
 					}
 				}
 
