@@ -10,13 +10,13 @@
         android:src="@drawable/ic_launcher" />
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textOwner"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="TextView" />
